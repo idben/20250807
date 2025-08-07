@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .dropArea{
+      width: 100%;
+      height: 200px;
+      border: 2px dashed #b2b2b2;
+      display: grid;
+      place-items: center;
+      transition: border-color 0.2s;
+
+      &:hover{
+        border-color: #ec1616;
+      }
+      &.hover{
+        border-color: #ec6f16;
+      }
+    }
+  </style>
+  <title>拖曳上傳</title>
+</head>
+<body>
+  <div class="dropArea" id="dropArea">
+    拖曳檔案到這裡
+  </div>
+
+  <script>
+    const dropArea = document.querySelector(".dropArea");
+
+    ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+      dropArea.addEventListener(eventName, e => e.preventDefault());
+    });
+
+    ["dragenter", "dragover"].forEach(eventName => {
+      dropArea.addEventListener(eventName, (e)=>{
+        e.target.classList.add("hover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+      dropArea.addEventListener(eventName, (e)=>{
+        e.target.classList.remove("hover");
+      });
+    });
+
+  </script>
+</body>
+</html>
