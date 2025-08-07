@@ -29,7 +29,7 @@ const corsOptions = {
 };
 
 const app = express();
-app.use(express.static(resolve(import.meta.dirname ,"public"))); // 設定靜態資源目錄, AKA 根目錄
+app.use(express.static(resolve(import.meta.dirname, "public"))); // 設定靜態資源目錄, AKA 根目錄
 app.use(cors(corsOptions)); // 全域的 midleware
 
 app.get("/", (req, res)=>{
