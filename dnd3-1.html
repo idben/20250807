@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .dragArea{
+      width: 200px;
+      height: 200px;
+      border: 2px dashed #bdbdbd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .dropArea{
+      width: 200px;
+      height: 200px;
+      border: 2px solid #0678eb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+  </style>
+  <title>拖曳事件的範例 1-1</title>
+</head>
+<body>
+  <div class="dragArea">
+    <img id="img1" src="https://sagedaben.com/iSpan/images/100x100.png" alt="" draggable="true">
+  </div>
+  <div class="dropArea">
+    拖到這裡來
+  </div>
+
+  <script>
+    const img = document.querySelector(".dragArea img");
+    const dropArea = document.querySelector(".dropArea");
+
+    img.addEventListener("dragstart", (e)=>{
+      e.dataTransfer.setData("text/plain", e.target.id);
+    });
+
+    dropArea.addEventListener("dragover", e=>e.preventDefault());
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData("text");
+      const elm = document.querySelector(`#${data}`);
+      e.target.append(elm);
+      // dropArea.append(img);
+    });
+  </script>
+</body>
+</html>
