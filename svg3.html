@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      margin: 0;
+      height: 100dvh;
+    }
+    svg{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .pink{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: pink;
+    }
+    .line{
+      stroke: pink;
+      stroke-width: 3px;
+      stroke-dasharray: 5, 5;
+    }
+  </style>
+  <title>兩個點畫一條線</title>
+</head>
+<body>
+  <svg></svg>
+
+
+  <script>
+    const svg = document.querySelector("svg");
+    let lastDiv = null;
+
+    const connectDivs = (div1, div2)=>{
+      // 取兩個 div 的中心點
+      const x1 = div1.offsetLeft + div1.offsetWidth / 2;
+      const y1 = div1.offsetTop + div1.offsetHeight / 2;
+      const x2 = div2.offsetLeft + div2.offsetWidth / 2;
+      const y2 = div2.offsetTop + div2.offsetHeight / 2;
+
+      const newLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      newLine.setAttribute("x1", x1);
+      newLine.setAttribute("y1", y1);
+      newLine.setAttribute("x2", x2);
+      newLine.setAttribute("y2", y2);
+      newLine.setAttribute("class", "line");
+
+      svg.append(newLine);
+    };
+
+    const createDiv = (x, y)=>{
+      const node = document.createElement("div");
+      node.classList.add("pink");
+      node.style.left = `${x-25}px`;
+      node.style.top = `${y-25}px`;
+      document.body.append(node);
+
+      if(lastDiv) connectDivs(lastDiv, node);
+      lastDiv = node;
+    };
+
+    document.addEventListener("click", (e)=>{
+      createDiv(e.pageX, e.pageY);
+    });
+  </script>
+</body>
+</html>
