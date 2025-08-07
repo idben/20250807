@@ -50,7 +50,7 @@
       });
     });
 
-    dropArea.addEventListener("drop", (e)=>{
+    dropArea.addEventListener("drop", async (e)=>{
       const files = e.dataTransfer.files;
 
       const formData = new FormData();
@@ -59,7 +59,13 @@
         formData.append("files", file);
       }
 
-      // fetch()
+      const res = await fetch("http://localhost:3005/upload", {
+        method: "POST",
+        body: formData
+      });
+      const result = await res.json();
+      console.log(result);
+      
     });
 
   </script>
